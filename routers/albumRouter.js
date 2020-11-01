@@ -30,11 +30,10 @@ const upload = multer({
 
 router.get("/", async (req, res) => {
   let albums;
-  console.log(req.query);
   try {
     albums = await schema.Album.find(req.query).populate("author");
   } catch (error) {
-    fetch(error);
+    res.status(400).send(error);
   }
   res.send(albums);
 });
@@ -45,23 +44,25 @@ router.post("/", upload.single("image"), async (req, res) => {
   try {
     await album.save();
   } catch (error) {
-    res.send(error);
+    res.status(400).send(error);
   }
   res.send(album);
 });
 
-router.delete("/", async (req, res) => {
-  let ans;
-  try {
-    data = await schema.Album.find();
-    ans = await schema.Album.deleteMany();
-    for (item of data) {
-      item.image && (await fs.unlink(config.ImageUploadingDir + "/" + item.image));
-    }
-  } catch (error) {
-    console.log(error);
-  }
-  res.send(ans);
-});
+// # if you need to use delete method for all albums, look at down
+
+// router.delete("/", async (req, res) => {
+//   let ans;
+//   try {
+//     data = await schema.Album.find();
+//     ans = await schema.Album.deleteMany();
+//     for (item of data) {
+//       item.image && (await fs.unlink(config.ImageUploadingDir + "/" + item.image));
+//     }
+//   } catch (error) {
+//     res.send(error);
+//   }
+//   res.send(ans);
+// });
 
 module.exports = router;

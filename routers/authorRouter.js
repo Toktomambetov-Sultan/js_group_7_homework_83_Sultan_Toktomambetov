@@ -37,18 +37,20 @@ router.post("/", upload.single("image"), async (req, res) => {
   res.send(author);
 });
 
-router.delete("/", async (req, res) => {
-  let ans;
-  try {
-    const data = await schema.Author.find();
-    ans = await schema.Author.deleteMany();
-    for (item of data) {
-      item.image && (await fs.unlink(config.ImageUploadingDir + "/" + item.image));
-    }
-  } catch (error) {
-    res.send(error);
-  }
-  res.send(ans);
-});
+// # if you need to use delete method for all authors, look at down
+
+// router.delete("/", async (req, res) => {
+//   let ans;
+//   try {
+//     const data = await schema.Author.find();
+//     ans = await schema.Author.deleteMany();
+//     for (item of data) {
+//       item.image && (await fs.unlink(config.ImageUploadingDir + "/" + item.image));
+//     }
+//   } catch (error) {
+//     res.send(error);
+//   }
+//   res.send(ans);
+// });
 
 module.exports = router;
