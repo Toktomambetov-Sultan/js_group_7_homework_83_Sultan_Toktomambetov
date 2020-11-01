@@ -8,7 +8,7 @@ const AuthorModel = new Schema({
     required: true,
   },
   information: String,
-  Photo: String,
+  Photo: { type: String },
 });
 
 const AlbumModel = new Schema({
@@ -21,14 +21,32 @@ const AlbumModel = new Schema({
     ref: "Author",
     required: true,
   },
-  date: {
+  image: { type: String, required: true },
+  __date: {
     type: Date,
-    // default: Date.now,
+    default: Date.now,
   },
 });
-const TrackModel = new Schema({});
+const TrackModel = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  album: {
+    type: Schema.Types.ObjectId,
+    ref: "Album",
+    required: true,
+  },
+  lasting: {
+    type: Date,
+    required: true,
+  },
+});
 
 AlbumModel.plugin(mongooseIdValidator);
+TrackModel.plugin(mongooseIdValidator);
+
+
 
 AuthorModel.pre("deleteMany", async () => {
   await mongoose.model("Album").deleteMany();
