@@ -6,6 +6,8 @@ const app = express();
 const authorRouter = require("./routers/authorRouter");
 const albumRouter = require("./routers/albumRouter");
 const trackRouter = require("./routers/trackRouter");
+const userRouter = require("./routers/userRouter");
+const trackHistoryRouter = require("./routers/trackHistoryRouter");
 
 const run = async () => {
   try {
@@ -25,6 +27,8 @@ const run = async () => {
   app.use("/author", authorRouter);
   app.use("/album", albumRouter);
   app.use("/track", trackRouter);
+  app.use("/users", userRouter);
+  app.use("/track_history", trackHistoryRouter);
 
   app.listen(config.port, () => {
     console.log(`Server started on ${config.port} port.`);

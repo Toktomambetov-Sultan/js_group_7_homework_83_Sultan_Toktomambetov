@@ -9,6 +9,7 @@
     "dev": "nodemon"
   },
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "k-mongoose-soft-delete-cascade": "^1.0.2",
