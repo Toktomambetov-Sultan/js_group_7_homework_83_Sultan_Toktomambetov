@@ -5,7 +5,7 @@ const schema = require("./../Models");
 router.get(
   "/",
   async (req, res, next) => {
-    if (!(req.query && req.query.author)) next();
+    if (!(req.query && req.query.author)) return next();
     let tracks;
     try {
       tracks = (
